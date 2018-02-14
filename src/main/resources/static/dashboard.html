@@ -1,0 +1,73 @@
+<nav class="navbar navbar-light bg-faded rounded navbar-toggleable-md">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#containerNavbar" aria-controls="containerNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">
+        <img src="/img/notification.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <span>Notifications App</span>
+    </a>
+
+    <div class="collapse navbar-collapse" id="containerNavbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <a href="#">
+            <span class="fa fa-user"></span> 
+            <strong>{{user}}</strong>
+        </a>
+    </div>
+</nav>
+
+<h1 class="text-center mt-4">Notifications App</h1>
+<div ng-controller="dashboardCtrl as notificationList">
+    <form class="form form-horizontal container" ng-submit="notificationList.addNotification()">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title of notification" ng-model="notificationList.newNotification.title">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Content</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Your content goes here..." ng-model="notificationList.newNotification.content"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Importance level</label>
+            <select class="form-control" id="exampleFormControlSelect1" ng-model="notificationList.newNotification.importance">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+        </div>
+
+        <input class="btn-primary" type="submit" value="Submit">
+    </form>
+
+    <div class="container">
+        <center><img id="spinner" ng-src="img/spinner.gif" style="display:none; margin: 0 auto"></center>
+        <div ng-repeat="notification in notificationList.notifications" id="notificationsWrapper">
+            <div class="example-1 card">
+                <div class="wrapper {{notification.backgroundClass}}" ng-class="(notification.isNew) ? 'animated shake' : ''">
+                    <div ng-if="notification.isNew">
+                        <div class="newNotificationIndicator">!</div>
+                    </div>
+                    <div class="date">
+                        <span class="day">{{notification.day}}</span>
+                        <span class="month">{{notification.year}}</span>
+                        <span class="year">{{notification.month}}</span>
+                        <span class="time">{{notification.timeValue}}</span>
+                    </div>
+                    <div class="data">
+                        <div class="content">
+                            <span class="author">{{notification.authorName}}</span>
+                            <h1 class="title"><a href="#">{{notification.title}}</a></h1>
+                            <p class="text">{{notification.content}}</p>
+                            <label for="show-menu" class="menu-button"><span></span></label>
+                        </div>
+                        <input type="checkbox" id="show-menu" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
